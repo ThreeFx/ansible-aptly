@@ -15,7 +15,8 @@ Role Variables
 | Variable Name | Default Value | Description |
 --------------- |---------------|--------------
 ---
-`aptly_user` | `aptly` | Name of the aplty user
+`aptly_key` | `""` | *required*, GPG1 Key used to sign packages
+`aptly_user` | `aptly` | Name of the aptly user
 `aptly_configuration` | `{}` | Aptly configuration, will be converted to JSON and written to `~/.aptly.conf`
 
 Dependencies

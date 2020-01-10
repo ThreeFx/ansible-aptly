@@ -1,3 +1,4 @@
 ---
+aptly_key: ""
 aptly_user: aptly
 aptly_configuration: {}

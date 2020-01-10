@@ -1,4 +1,15 @@
 ---
+- name: Fail when aptly_key absent
+  fail:
+    msg: "You must define aptly_key"
+  when: aptly_key == ""
+
+- name: Install dependencies
+  become: True
+  package:
+    name:
+      - acl
+
 - name: Create aptly user
   become: True
   user:
@@ -18,3 +29,17 @@
     dest: "/home/{{ aptly_user }}/.aptly.conf"
     owner: "{{ aptly_user }}"
     group: "{{ aptly_user }}"
+
+- name: Copy the key
+  become: True
+  become_user: "{{ aptly_user }}"
+  copy:
+    dest: ~/key
+    content: "{{ aptly_key }}"
+    mode: 0400
+
+- name: Import gpg1 key
+  become: True
+  become_user: "{{ aptly_user }}"
+  shell: gpg1 --import ~/key
+  changed_when: False
