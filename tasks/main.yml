@@ -1,0 +1,20 @@
+---
+- name: Create aptly user
+  become: True
+  user:
+    name: "{{ aptly_user }}"
+    createhome: yes
+    shell: /bin/bash
+
+- name: Install aptly
+  become: True
+  package:
+    name: aptly
+
+- name: Configure aptly
+  become: True
+  template:
+    src: aptly.conf.j2
+    dest: "/home/{{ aptly_user }}/.aptly.conf"
+    owner: "{{ aptly_user }}"
+    group: "{{ aptly_user }}"
